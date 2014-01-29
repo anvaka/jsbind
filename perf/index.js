@@ -1,8 +1,9 @@
 var Benchmark = require('benchmark');
 var suite = new Benchmark.Suite;
 
-suite.add('Raw call to complex object', require('./rawCall'))
+suite.add('Direct call complexObject.changeText()', require('./rawCall'))
 .add('Change via binding', require('./binding'))
+.add('Change via event notification', require('./events'))
 .on('cycle', function(event) {
   console.log(String(event.target));
 })
