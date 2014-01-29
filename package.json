@@ -16,5 +16,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/anvaka/jsbind"
+  },
+  "devDependencies": {
+    "benchmark": "~1.0.0"
   }
 }

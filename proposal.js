@@ -33,7 +33,7 @@ var ourModel = { name: '' };
 complexObjectBinder.bind("Hello {name}", complexObject, ourModel);
 
 // now if we update model
-ourModel.name = "World ;)!"
+ourModel.name = "World ;)!";
 
 // All targets are updated too:
 console.log(complexObject.text); // prints "Hello World ;)!"
@@ -42,6 +42,6 @@ console.log(complexObject.text); // prints "Hello World ;)!"
 // @anvaka
 
 // PS: all magic is done inside this function, which delegates to `jsbind` module
-function createBinding(bindingExpression, setter) {
-  return require('./')(bindingExpression, setter);
+function createBinding(setter) {
+  return require('./')(setter);
 }

@@ -32,14 +32,17 @@ function createBinding(setter) {
 
 function createProperties(source, name, target, setterBody){
   var value = source[name];
+  setterBody = setterBody.replace(/\bthis\b/g, 'target');
+  var setter = compileSetter(setterBody)(target);
   Object.defineProperty(source, name, {
     get: function () { return value; },
-    set: compileSetter(setterBody).bind(target)
-  })
+    set: setter
+  });
 }
 
 function compileSetter(setterCode) {
-  return (new Function('newValue', setterCode));
+  return (new Function('target',
+         " return function(newValue) {" + setterCode + "} "));
 }
 
 function getFunctionBody(func) {
