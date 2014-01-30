@@ -1,5 +1,5 @@
 var bindingTarget = require('./createObject')();
-var createBinding = require('../');
+var createBinding = require('../../');
 
 // let binding framework know how to modify binding target:
 var complexObjectBinder = createBinding(function (newValue) {
