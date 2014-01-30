@@ -1,26 +1,13 @@
 module.exports = createBinding;
 
-var registeredBindings = {},
-    jsBindId = 0;
-
 function createBinding(setter) {
   var setterBody = getFunctionBody(setter);
 
   return {
-    bind: function (expression, target, source) {
-      recompile(expression, target, source);
-    }
+    bind: bind
   };
 
-  function recompile(expression, target, source) {
-    var currentBindings = registeredBindings[source.__jsbindId];
-    if (!currentBindings) {
-      source.__jsbindId = jsBindId++;
-      currentBindings = {
-        code: []
-      };
-    }
-
+  function bind(expression, target, source) {
     var parsedExpression = parseExpression(expression);
 
     var code = parsedExpression.code + setterBody;
