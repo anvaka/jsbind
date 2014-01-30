@@ -2,34 +2,42 @@ module.exports = createBinding;
 
 function createBinding(setter) {
   var setterBody = getFunctionBody(setter);
+  setterBody = setterBody.replace(/\bthis\b/g, 'target');
 
   return {
     bind: bind
   };
 
-  function bind(expression, target, source) {
-    var parsedExpression = parseExpression(expression);
+  function bind(expression, target, targetName, source) {
+    if (source === undefined) {
+      source = targetName;
+      targetName = '';
+    }
 
+    var parsedExpression = parseExpression(expression);
     var code = parsedExpression.code + setterBody;
     for (var i = 0; i < parsedExpression.keys.length; ++i) {
-      createProperties(source, parsedExpression.keys[i], target, code);
+      createProperties(source, parsedExpression.keys[i], target, targetName, code);
     }
   }
 }
 
-function createProperties(source, name, target, setterBody){
+function createProperties(source, name, target, targetName, setterBody){
   var value = source[name];
-  setterBody = setterBody.replace(/\bthis\b/g, 'target');
-  var setter = compileSetter(setterBody)(target);
-  Object.defineProperty(source, name, {
-    get: function () { return value; },
-    set: setter
-  });
+  Object.defineProperty(source, name, compileMethods(setterBody)(value, target, targetName));
+  source[name] = value; // trigger binding;
 }
 
-function compileSetter(setterCode) {
-  return (new Function('target',
-         " return function(newValue) {" + setterCode + "} "));
+function compileMethods(setterCode) {
+  return new Function('oldValue', 'target', 'targetName', [
+' return {',
+'   get: function() { return oldValue; },',
+'   set: function(newValue) {',
+'      oldValue = newValue;',
+       setterCode,
+'      }',
+' };'].join('\n')
+  );
 }
 
 function getFunctionBody(func) {

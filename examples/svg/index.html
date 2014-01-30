@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>jsbind for svg</title>
+    <script src='bundle.js' type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body onload='svgdemo.run()'>
+  <svg id='scene' height="480" width="640">
+    <circle r='10px' fill="red"
+            s:cx="{x}px" s:cy="{y}px" s:r="{r}px" s:fill="{color}" />
+  </svg>
+  </body>
+</html>

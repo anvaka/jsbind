@@ -19,6 +19,8 @@
   },
   "devDependencies": {
     "benchmark": "~1.0.0",
-    "backbone": "~1.1.0"
+    "backbone": "~1.1.0",
+    "gaze": "~0.4.3",
+    "browserify": "~3.24.6"
   }
 }
