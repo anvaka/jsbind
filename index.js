@@ -33,7 +33,7 @@ function compileMethods(setterCode) {
 ' return {',
 '   get: function() { return oldValue; },',
 '   set: function(newValue) {',
-'      oldValue = newValue;',
+//'      oldValue = newValue;',
        setterCode,
 '      }',
 ' };'].join('\n')
@@ -58,6 +58,6 @@ function parseExpression(expr) {
   // todo: this doesn't have to be hardcoded and be always a string
   return {
     keys: keys,
-    code: 'newValue = "' + bindingCode + '";'
+    code: ''//newValue = "' + bindingCode + '";'
   };
 }

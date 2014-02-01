@@ -6,8 +6,8 @@ module.exports = function () {
   // pretend we are moving
   for (var i = 0; i < objects.length; ++i) {
     var obj = objects[i];
-    obj.x = i;
-    obj.y = i;
+    obj.x += 1;
+    obj.y += 1;
   }
 };
 
@@ -28,8 +28,8 @@ function bind(node, model) {
 }
 
 function bindAttribute(target, targetPropertyName, bindingExpression, model) {
-  var binder = jsbind(function() {
-    this.setAttributeNS(targetName, newValue);
+  var binder = jsbind(function(newValue) {
+    target.setAttributeNS(targetName, newValue);
   });
 
   binder.bind(bindingExpression, target, targetPropertyName, model);
