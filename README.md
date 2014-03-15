@@ -2,7 +2,7 @@
 
 Runtime javascript data binding.
 
-After playing with idea below for a while, I realized properties are much slower than method call (no matter whether they are dynamically compiled or not). I maybe come back to this some time in future.
+** Conclusion **: After playing with idea below for a while, I realized properties are much slower than method call (no matter whether they are dynamically compiled or not). I maybe come back to this some time in future.
 
 # Idea
 
